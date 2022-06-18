@@ -1,0 +1,57 @@
+cmake_minimum_required(VERSION 3.16)
+
+
+
+#######################################################################################################################
+# Cpp Standard
+#######################################################################################################################
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+#######################################################################################################################
+
+
+project(DemoProject VERSION 1.0.0)
+
+
+
+# Find some project-wide dependencies
+
+#######################################################################################################################
+# Threads package
+#######################################################################################################################
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+find_package(Threads REQUIRED)
+#######################################################################################################################
+
+
+
+#######################################################################################################################
+# Googletest
+# Download Googletest as described here:
+# https://github.com/google/googletest/blob/master/googletest/README.md#incorporating-into-an-existing-cmake-project
+# e2239ee6043f73722e7aa812a459f54a28552929 is Version 1.11.0 - 11 Jun, 2022
+#######################################################################################################################
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.zip
+)
+
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(googletest)
+#######################################################################################################################
+
+
+# Proceed to submodules
+add_subdirectory(libs)
+
+
+# Global Examples
+add_subdirectory(examples)
+
+# Global Tests
+add_subdirectory(tests)
