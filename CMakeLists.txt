@@ -31,16 +31,19 @@ find_package(Threads REQUIRED)
 # Googletest
 # Download Googletest as described here:
 # https://github.com/google/googletest/blob/master/googletest/README.md#incorporating-into-an-existing-cmake-project
-# e2239ee6043f73722e7aa812a459f54a28552929 is Version 1.11.0 - 11 Jun, 2022
 #######################################################################################################################
 include(FetchContent)
+
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/e2239ee6043f73722e7aa812a459f54a28552929.zip
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.11.0
 )
 
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+# No GMock needed for now
+set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
 #######################################################################################################################
